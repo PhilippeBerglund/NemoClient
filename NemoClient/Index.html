@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1>Menu</h1>
+        <h4>Pasta</h4>
+        <button id="pasta">Välj</button>
+        <h4>Kött</h4>
+        <button id=meat>Välj</button>
+        <h4>Fisk</h4>
+        <button id=fish>Välj</button>
+    </div>
+    <input id=msg  />
+    <button id=send>Beställ</button>
+    <div id=rec></div>
+    <script>
+
+        var ws = new WebSocket("ws://localhost:8080/echo")
+        ws.onopen = function () {
+
+            document.getElementById("pasta").addEventListener('click', function () {
+                document.getElementById("msg").value = "pasta"
+                
+            })
+
+            document.getElementById("meat").addEventListener('click', function () {
+                document.getElementById("msg").value = "meat"
+
+            })
+
+            document.getElementById("fish").addEventListener('click', function () {
+                document.getElementById("msg").value = "fish"
+
+            })
+
+            var btn = document.getElementById("send");
+            btn.addEventListener('click', function () {
+                var message = document.getElementById("msg").value
+                ws.send(message);
+            })
+
+        }
+
+        ws.onmessage = function (evt) {
+            console.log(evt)
+            var rec = evt.data
+            document.getElementById('rec').innerHTML += rec + "<br>";
+        }
+    </script>
+
+</body>
+
+
+</html>
