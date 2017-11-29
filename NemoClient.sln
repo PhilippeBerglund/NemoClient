@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NemoClient", "NemoClient\NemoClient.csproj", "{C6054F3D-344B-4BD1-8709-2A88994AFF71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6054F3D-344B-4BD1-8709-2A88994AFF71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6054F3D-344B-4BD1-8709-2A88994AFF71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6054F3D-344B-4BD1-8709-2A88994AFF71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6054F3D-344B-4BD1-8709-2A88994AFF71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE5B8A12-1AA9-4213-AA1D-C3E0259EDBB7}
+	EndGlobalSection
+EndGlobal
