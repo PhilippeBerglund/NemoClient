@@ -5,30 +5,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Restaurant Nemo</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
-<body>
-    <div>
-        <h1>Menu</h1>
-        <h4>Pasta</h4>
-        <button id="pasta">Välj</button>
-        <h4>Kött</h4>
-        <button id=meat>Välj</button>
-        <h4>Fisk</h4>
-        <button id=fish>Välj</button>
+<body style="margin-top: 20px">
+    <div class="container">
+        <div class="container">
+            <h2>Restaurant Nemo</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h3>Menu</h3>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <h4>Pasta</h4>
+                            </div>
+                            <div class="col-sm-3">
+                                <button id="pasta" class="btn btn-info pull-right">
+                                    Välj
+                                    <span class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <h4>Kött</h4>
+                            </div>
+                            <div class="col-sm-3">
+                                <button id="meat" class="btn btn-info pull-right">
+                                    Välj
+                                    <span class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <h4>Fisk</h4>
+                            </div>
+                            <div class="col-sm-3">
+                                <button id="fish" class="btn btn-info pull-right">
+                                    Välj
+                                    <span class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h3>Orders</h3>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>New order:</h4>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <input id=msg class="form-control" />
+                            </div>
+                            <div class="col-sm-3">
+                                <button id=send class="btn btn-info">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                    Beställ
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>Status:</h4>
+                        <div id=rec></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <input id=msg  />
-    <button id=send>Beställ</button>
-    <div id=rec></div>
-    <script>
 
+    <script>
         var ws = new WebSocket("ws://localhost:8080/echo")
         ws.onopen = function () {
 
+            console.log('Connected to server');
+
             document.getElementById("pasta").addEventListener('click', function () {
                 document.getElementById("msg").value = "pasta"
-                
             })
 
             document.getElementById("meat").addEventListener('click', function () {
@@ -42,6 +111,7 @@
             })
 
             var btn = document.getElementById("send");
+
             btn.addEventListener('click', function () {
                 var message = document.getElementById("msg").value
                 ws.send(message);
