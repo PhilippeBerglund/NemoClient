@@ -92,6 +92,7 @@
 
     <script>
         var ws = new WebSocket("ws://localhost:8080/echo")
+
         ws.onopen = function () {
 
             console.log('Connected to server');
@@ -114,8 +115,11 @@
 
             btn.addEventListener('click', function () {
                 var message = document.getElementById("msg").value
-                ws.send(message);
-                document.getElementById("msg").value = "";
+                
+                if(message != "" && message != null) {
+                    ws.send(message);
+                    document.getElementById("msg").value = "";
+                }
             })
 
         }
