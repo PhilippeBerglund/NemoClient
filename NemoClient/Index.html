@@ -96,6 +96,7 @@
         ws.onopen = function () {
 
             console.log('Connected to server');
+            document.getElementById('rec').innerHTML += 'Connected to server<br>';
 
             document.getElementById("pasta").addEventListener('click', function () {
                 document.getElementById("msg").value = "pasta"
@@ -124,10 +125,20 @@
 
         }
 
+        ws.onclose = function () {
+
+            document.getElementById('rec').innerHTML += 'Server disconnected.<br>';
+        }
+
         ws.onmessage = function (evt) {
             console.log(evt)
             var rec = evt.data
             document.getElementById('rec').innerHTML += rec + "<br>";
+        }
+
+        ws.onerror = function () {
+            
+            document.getElementById('rec').innerHTML += 'Not connected<br>';
         }
     </script>
 
