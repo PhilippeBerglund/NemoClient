@@ -11,7 +11,7 @@
     <link href="css/main.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="altbody">
     <div class="container">
         <div class="row">
             <div class="col-xs-9">
@@ -119,6 +119,7 @@
 
             console.log('Connected to server');
             document.getElementById('rec').innerHTML += 'Connected to server<br>';
+            document.getElementsByTagName('body')[0].removeAttribute('class');            
 
 
             for (var i = 0; i < buttons.length; i++) {
@@ -148,7 +149,8 @@
 
         ws.onclose = function () {
 
-                document.getElementById('rec').innerHTML += 'Server disconnected.<br>';
+            document.getElementById('rec').innerHTML += 'Server disconnected.<br>';
+            document.getElementsByTagName('body')[0].setAttribute('class', 'altbody');            
 
             for (var i = 0; i < buttons.length; i++) {
                 var item = document.getElementById(buttons[i]);
@@ -178,6 +180,7 @@
         ws.onerror = function () {
             
             document.getElementById('rec').innerHTML += 'Not connected<br>';
+            document.getElementsByTagName('body')[0].setAttribute('class', 'altbody');            
         }
 
         document.getElementById('connect').addEventListener('click', function () {
