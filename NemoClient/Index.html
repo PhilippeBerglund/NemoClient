@@ -12,8 +12,13 @@
 
 <body style="margin-top: 20px">
     <div class="container">
-        <div class="container">
-            <h2>Restaurant Nemo</h2>
+        <div class="row">
+            <div class="col-sm-9">
+                <h2>Restaurant Nemo</h2>
+            </div>
+            <div class="col-sm-3">
+                <button id="connect" class="btn btn-default pull-right">Connect</button>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
@@ -27,7 +32,7 @@
                                 <h4>Pasta</h4>
                             </div>
                             <div class="col-sm-3">
-                                <button id="pasta" class="btn btn-info pull-right">
+                                <button id="pasta" class="btn btn-info pull-right" disabled>
                                     Välj
                                     <span class="glyphicon glyphicon-arrow-right"></span>
                                 </button>
@@ -40,7 +45,7 @@
                                 <h4>Kött</h4>
                             </div>
                             <div class="col-sm-3">
-                                <button id="meat" class="btn btn-info pull-right">
+                                <button id="meat" class="btn btn-info pull-right" disabled>
                                     Välj
                                     <span class="glyphicon glyphicon-arrow-right"></span>
                                 </button>
@@ -53,7 +58,7 @@
                                 <h4>Fisk</h4>
                             </div>
                             <div class="col-sm-3">
-                                <button id="fish" class="btn btn-info pull-right">
+                                <button id="fish" class="btn btn-info pull-right" disabled>
                                     Välj
                                     <span class="glyphicon glyphicon-arrow-right"></span>
                                 </button>
@@ -74,7 +79,7 @@
                                 <input id=msg class="form-control" disabled />
                             </div>
                             <div class="col-xs-4">
-                                <button id=send class="btn btn-info">
+                                <button id=send class="btn btn-info" disabled>
                                     <span class="glyphicon glyphicon-shopping-cart"></span>
                                     Beställ
                                 </button>
@@ -92,27 +97,27 @@
 
     <script>
         var ws = new WebSocket("ws://localhost:8080/echo")
+        var buttons = ["pasta", "meat", "fish"];
 
         ws.onopen = function () {
 
             console.log('Connected to server');
             document.getElementById('rec').innerHTML += 'Connected to server<br>';
 
-            document.getElementById("pasta").addEventListener('click', function () {
-                document.getElementById("msg").value = "pasta"
-            })
 
-            document.getElementById("meat").addEventListener('click', function () {
-                document.getElementById("msg").value = "meat"
+            for (var i = 0; i < buttons.length; i++) {
+                var item = document.getElementById(buttons[i]);
 
-            })
+                item.removeAttribute('disabled');
 
-            document.getElementById("fish").addEventListener('click', function () {
-                document.getElementById("msg").value = "fish"
-
-            })
-
+                item.addEventListener('click', function () {
+                    var button = this.getAttribute('id');
+                    document.getElementById("msg").value = button;
+                })
+            }
+            
             var btn = document.getElementById("send");
+            btn.removeAttribute('disabled');
 
             btn.addEventListener('click', function () {
                 var message = document.getElementById("msg").value
@@ -128,6 +133,17 @@
         ws.onclose = function () {
 
             document.getElementById('rec').innerHTML += 'Server disconnected.<br>';
+
+            for (var i = 0; i < buttons.length; i++) {
+                var item = document.getElementById(buttons[i]);
+
+                item.setAttribute('disabled', 'true');
+            }
+
+            var btn = document.getElementById("send");
+            btn.setAttribute('disabled', 'true');
+
+            document.getElementById("msg").value = "";
         }
 
         ws.onmessage = function (evt) {
@@ -140,6 +156,10 @@
             
             document.getElementById('rec').innerHTML += 'Not connected<br>';
         }
+
+        document.getElementById('connect').addEventListener('click', function () {
+            location.reload();
+        });
     </script>
 
 </body>
