@@ -78,6 +78,7 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\main.css" />
     <Content Include="images\blackwhale.png" />
+    <Content Include="images\whitewhale.png" />
     <Content Include="Status.html" />
     <Content Include="Index.html" />
     <Content Include="Web.config" />
