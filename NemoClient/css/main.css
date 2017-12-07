@@ -1,0 +1,10 @@
+﻿body {
+    margin-top: 20px;
+    background: #e0ebf1 url('../images/whale.png') center 90% no-repeat;
+    height: 100vh;
+}
+
+h2 {
+    color: #469b9d;
+    text-shadow: -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white, 2px 2px 0px white;
+}

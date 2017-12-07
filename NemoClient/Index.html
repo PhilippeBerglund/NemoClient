@@ -8,13 +8,16 @@
     <title>Restaurant Nemo</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="css/main.css" rel="stylesheet" />
 </head>
 
-<body style="margin-top: 20px">
+<body>
     <div class="container">
         <div class="row">
             <div class="col-sm-9">
-                <h2>Restaurant Nemo</h2>
+                <div class="container">
+                    <h2>Restaurant Nemo</h2>
+                </div>
             </div>
             <div class="col-sm-3">
                 <button id="connect" class="btn btn-default pull-right">Connect</button>
@@ -66,6 +69,17 @@
                         </div>
                     </li>
                 </ul>
+                
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h4>Message</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <h4 id="announcement">&nbsp;
+                        </h4>
+                    </li>
+                </ul>
+                
             </div>
             <div class="col-sm-6">
                 <ul class="list-group">
@@ -149,7 +163,14 @@
         ws.onmessage = function (evt) {
             console.log(evt)
             var rec = evt.data
-            document.getElementById('rec').innerHTML += rec + "<br>";
+
+            if(rec.match(/.*ready\.$/)) {
+                document.getElementById('announcement').innerHTML = rec;
+            }
+            else {
+                document.getElementById('rec').innerHTML += rec + "<br>";
+            }
+            
         }
 
         ws.onerror = function () {

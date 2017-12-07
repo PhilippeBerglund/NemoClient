@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Restaurant Nemo</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-9">
+                <div class="container">
+                    <h2>Restaurant Nemo</h2>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <button id="connect" class="btn btn-default pull-right">Connect</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h4>Orders ready:</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <h3 id="announcement" class="text-info">&nbsp;
+                        </h3>
+                    </li>
+                </ul>
+                
+            </div>
+            <div class="col-sm-6">
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h4>History:</h4>
+                    </li>
+                    <li class="list-group-item" id="history" style="min-height: 78px">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var ws = new WebSocket("ws://localhost:8080/echo")
+        var buttons = ["pasta", "meat", "fish"];
+
+        ws.onopen = function () {
+
+            console.log('Connected to server');
+            
+        }
+
+        ws.onclose = function () {
+            
+        }
+
+        ws.onmessage = function (evt) {
+            
+            var rec = evt.data
+
+            if (rec.match(/.*ready\.$/)) {
+                var time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                document.getElementById('announcement').innerHTML = rec;
+                document.getElementById('history').innerHTML += time + ': ' + rec + '<br>';
+            }
+            
+        }
+
+        ws.onerror = function () {
+            
+            console.log('Not connected');
+        }
+
+        document.getElementById('connect').addEventListener('click', function () {
+            location.reload();
+        });
+    </script>
+
+</body>
+
+
+</html>
