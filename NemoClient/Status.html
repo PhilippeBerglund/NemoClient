@@ -11,7 +11,7 @@
     <link href="css/main.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="altbody">
     <div class="container">
         <div class="row">
             <div class="col-xs-9">
@@ -59,12 +59,13 @@
 
             document.getElementById('rec').innerHTML = 'Connected to server';
             console.log('Connected to server');
-            
+            document.getElementsByTagName('body')[0].removeAttribute('class');            
         }
 
         ws.onclose = function () {
 
             document.getElementById('rec').innerHTML = 'Server disconnected';
+            document.getElementsByTagName('body')[0].setAttribute('class', 'altbody');            
 
         }
 
@@ -83,6 +84,7 @@
 
         ws.onerror = function () {
 
+            document.getElementsByTagName('body')[0].setAttribute('class', 'altbody');            
             document.getElementById('rec').innerHTML = 'Not connected';
             console.log('Not connected');
         }
